@@ -6,58 +6,33 @@
   if (!root) return;
 
   const CARDS = [
-    { topic: "Flowcharts", front: "Name of the oval in a flowchart", back: "input or output", accept: ["input/output", "io", "input and output", "i/o"] },
-    { topic: "Flowcharts", front: "Name of the rectangle in a flowchart", back: "instruction", accept: ["process", "operation", "an instruction"] },
-    { topic: "Flowcharts", front: "Name of the diamond in a flowchart", back: "decision", accept: ["yes/no question", "question", "a yes/no question"] },
-    { topic: "Flowcharts", front: "Last valid index of a flowchart list of length n", back: "n", accept: ["length", "list length"] },
-    { topic: "Flowcharts", front: "What you write on the two arrows leaving a diamond", back: "YES and NO", accept: ["yes/no", "YES, NO"] },
+    { topic: "Terminology", front: "A variable of a method that is initialized with a value when the method is called", back: "parameter variable", accept: ["parameter", "parameter variables", "parameters"] },
+    { topic: "Terminology", front: "All statements of a method or block", back: "body", accept: ["method body", "block body"] },
+    { topic: "Terminology", front: "A value supplied in a method call", back: "argument", accept: ["arguments"] },
+    { topic: "Terminology", front: "The type of value a method gives back to its caller", back: "return type" },
+    { topic: "Terminology", front: "The method that makes a call to another method", back: "calling method", accept: ["caller", "the caller"] },
+    { topic: "Terminology", front: "The keywords public and static in a method header are called", back: "modifiers", accept: ["modifier"] },
 
-    { topic: "Java files", front: "The class inside Total.java must be named", back: "Total" },
-    { topic: "Java files", front: "Java is this with respect to capital letters", back: "case sensitive", accept: ["case-sensitive"] },
-    { topic: "Java files", front: "Style of class names", back: "CamelCase", accept: ["PascalCase", "UpperCamelCase"] },
-    { topic: "Java files", front: "Style of method names", back: "lowerCamelCase", accept: ["camelCase"] },
-    { topic: "Java files", front: "Where a Java program starts running", back: "main", accept: ["public static void main(String[] args)", "the main method"] },
+    { topic: "Calling methods", front: "The number of arguments in a call must equal the number of what?", back: "parameters", accept: ["parameter variables", "parameter"] },
+    { topic: "Calling methods", front: "For larger(int a, int b) called as larger(7, 3), the value that goes into b", back: "3" },
+    { topic: "Calling methods", front: "The most values a method can return", back: "one", accept: ["1"] },
+    { topic: "Calling methods", front: "A method's return value is sent back to _______", back: "the calling method", accept: ["calling method", "the caller", "caller"] },
 
-    { topic: "Types", front: "Smallest int, as a Java constant", back: "Integer.MIN_VALUE", accept: ["-2147483648"] },
-    { topic: "Types", front: "Integer.MIN_VALUE - 1", back: "Integer.MAX_VALUE", accept: ["2147483647"] },
-    { topic: "Types", front: "Type that holds true or false", back: "boolean" },
-    { topic: "Types", front: "Type that holds text", back: "String" },
-    { topic: "Types", front: "Value of q after: double q = 9 / 4;", back: "2.0" },
-    { topic: "Types", front: "(int) 4.9", back: "4" },
-    { topic: "Types", front: "Does int x = 4.9; compile?", back: "no", accept: ["false"] },
-    { topic: "Types", front: "Does if (1) compile in Java?", back: "no", accept: ["false"] },
+    { topic: "Writing methods", front: "Return type of a method that returns nothing", back: "void" },
+    { topic: "Writing methods", front: "Method header for the absolute value of an int, named abs", back: "public static int abs(int n)", accept: ["public static int abs(int x)", "public static int abs(int num)"] },
+    { topic: "Writing methods", front: "Style of method names", back: "lowerCamelCase", accept: ["camelCase"] },
 
-    { topic: "Arithmetic", front: "19 / 5", back: "3" },
-    { topic: "Arithmetic", front: "19 % 5", back: "4" },
-    { topic: "Arithmetic", front: "-19 / 5", back: "-3" },
-    { topic: "Arithmetic", front: "-19 % 5", back: "-4" },
-    { topic: "Arithmetic", front: "9 / 4.0", back: "2.25" },
-    { topic: "Arithmetic", front: "2 + 3 * 4", back: "14" },
-    { topic: "Arithmetic", front: "1 + 2 + \"3\"", back: "\"33\"", accept: ["33"] },
-    { topic: "Arithmetic", front: "\"1\" + (2 + 3)", back: "\"15\"", accept: ["15"] },
-    { topic: "Arithmetic", front: "Direction int division rounds", back: "toward zero", accept: ["towards zero", "to zero"] },
-    { topic: "Arithmetic", front: "Sign of a % b matches", back: "a", accept: ["the left operand", "left", "dividend"] },
-    { topic: "Arithmetic", front: "What wrapping past Integer.MAX_VALUE is called", back: "overflow" },
+    { topic: "Parameter passing", front: "A parameter variable is created _______", back: "when the method is called", accept: ["when it is called", "at the call", "when called"] },
+    { topic: "Parameter passing", front: "A parameter variable stops existing _______", back: "when the method returns", accept: ["when the method ends", "when it returns", "when the method finishes"] },
+    { topic: "Parameter passing", front: "A parameter variable holds what, relative to the argument?", back: "a copy", accept: ["a copy of the value", "a copy of the argument", "a copy of the argument's value"] },
+    { topic: "Parameter passing", front: "Can a method change the contents of a variable passed as an argument?", back: "no", accept: ["false"] },
+    { topic: "Parameter passing", front: "Can two different methods each have a variable named n?", back: "yes", accept: ["true"] },
 
-    { topic: "Booleans", front: "a && b is true only if", back: "both are true", accept: ["both true", "a and b are true"] },
-    { topic: "Booleans", front: "a || b is true if", back: "at least one is true", accept: ["one is true", "either is true", "a or b is true"] },
-    { topic: "Booleans", front: "Operator that flips true and false", back: "!", accept: ["not", "!a"] },
-    { topic: "Booleans", front: "Name for skipping the right side of && or ||", back: "short circuit", accept: ["short-circuit", "short-circuit evaluation", "short circuiting"] },
-
-    { topic: "Control flow", front: "When a while condition is false at the start, the body runs", back: "0 times", accept: ["0", "zero", "zero times"] },
-    { topic: "Control flow", front: "A do-while body always runs at least", back: "once", accept: ["1", "one", "1 time", "one time"] },
-    { topic: "Control flow", front: "A variable declared in a for header exists", back: "only inside the loop", accept: ["inside the loop", "in the loop"] },
-    { topic: "Control flow", front: "An else belongs to which if?", back: "the if right before it", accept: ["the nearest if", "the closest if"] },
-    { topic: "Control flow", front: "Separate if statements can run", back: "more than one", accept: ["multiple", "several", "all of them"] },
-    { topic: "Control flow", front: "Keyword for the false branch of ? :", back: ":", accept: ["colon"] },
-
-    { topic: "Correctness", front: "Two things you show for a loop", back: "invariant and termination", accept: ["loop invariant and termination measure", "invariant and termination measure"] },
-    { topic: "Correctness", front: "If a loop body never changes the condition, the loop", back: "never ends", accept: ["infinite", "runs forever", "does not stop"] },
-    { topic: "Correctness", front: "The compiler requires a return on", back: "every path", accept: ["all paths", "every possible path"] },
-
-    { topic: "Algorithms", front: "If the list is unsorted, binary search can return", back: "false when the number is there", accept: ["false", "a wrong false"] },
-    { topic: "Algorithms", front: "After binary search outputs true, list[mid] equals", back: "n", accept: ["the target", "the number you searched for"] },
-    { topic: "Algorithms", front: "After the first k positions of selection sort, those k values are", back: "the k smallest, in order", accept: ["sorted", "the smallest k"] }
+    { topic: "Return values", front: "When a return statement runs, the method", back: "exits immediately", accept: ["exits", "ends immediately", "exits the method", "leaves immediately"] },
+    { topic: "Return values", front: "Can a return statement return an expression such as -n?", back: "yes", accept: ["true"] },
+    { topic: "Return values", front: "Statement that exits a void method early", back: "return;", accept: ["return"] },
+    { topic: "Return values", front: "Can a void method return a value?", back: "no", accept: ["false"] },
+    { topic: "Return values", front: "A method with a return type must return a value on _______", back: "every path", accept: ["all paths", "every possible path"] }
   ];
 
   const topics = ["All topics"].concat(CARDS.map((c) => c.topic).filter((t, i, a) => a.indexOf(t) === i));

@@ -38,43 +38,22 @@ Object.keys(samples).forEach((id) => {
 });
 
 check(
-  "threes includes zero",
-  samples.threesWhile.code.replace("i > 0", "i >= 0"),
-  "10",
-  ["9", "6", "3", "0", ""].join("\n")
-);
-
-check(
-  "threes start at zero",
-  samples.threesWhile.code,
-  "0",
-  ""
-);
-
-check(
-  "no negatives",
-  samples.negatives.code,
-  "4 1 0 -1",
-  "0\n"
-);
-
-check(
-  "tickets separate ifs",
-  samples.ticketWrong.code,
-  "70",
-  "SENIOR\n"
-);
-
-check(
-  "lcm with zero does not stop",
-  samples.lcm.code.replace("lcm(5, 4)", "lcm(5, 0)"),
+  "parameter changes do not affect the argument",
+  "public class T { public static void change(int n) { n = 99; } public static void main(String[] args) { int x = 1; change(x); System.out.println(x); } }",
   "",
-  /zero|stopped after/
+  "1\n"
+);
+
+check(
+  "void method cannot return a value",
+  "public class T { public static void f() { return 1; } public static void main(String[] args) { f(); } }",
+  "",
+  /void/
 );
 
 check(
   "Main is not main",
-  samples.totalBroken.code.replace("int a = 12\n", "int a = 12;\n"),
+  "public class T { public static void Main(String[] args) { System.out.println(1); } }",
   "",
   /no main/
 );
@@ -128,7 +107,7 @@ check(
   "9\n"
 );
 
-const traced = run(samples.digitsProd.code, "", { trace: true });
+const traced = run(samples.absVariable.code, "", { trace: true });
 if (traced.error || traced.trace.length < 3) {
   failed++;
   console.log("FAIL trace", traced);

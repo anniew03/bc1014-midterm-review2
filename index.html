@@ -18,11 +18,11 @@
 
     <main>
       <section id="start" data-nav="Overview">
-        <h1>BC1014 Midterm Review 2</h1>
+        <h1>BC1014 Midterm Review 2: Methods</h1>
         <div class="disclaimer">
-          <p><strong>Please read:</strong> I made this site myself as a TA, based on the lectures, in-class code, and homework. I don't know what will be on the exam. This is a second set of examples, not an official study guide. If something here disagrees with the lectures or with Professor Li, go with the lectures and Professor Li.</p>
+          <p> Part 2 of the midterm review. Content is based on textbook and homeworks. </p>
           <ul>
-            <li>These problems are different from the first review site. Use both, plus the lectures and homework.</li>
+            <li>These problems and concepts are different from the first review site and covers material from 10/12-10/19.</li>
             <li>The code boxes run in a simplified Java simulator in your browser. It handles the Java used in this course, but it isn't real Java and won't catch every compile error.</li>
             <li>The flowchart builder is a practice tool. On the exam, use the flowchart notation from class.</li>
             <li>The exam is on paper, so practice working through problems by hand, not just running them here.</li>
@@ -30,609 +30,127 @@
         </div>
         <p>The exam is closed book, pen and paper, with no cheat sheet. It covers all lectures and homework up to the midterm.</p>
         <ul>
-          <li>Flowcharts: reading, tracing, and writing them</li>
-          <li>The structure of a Java file</li>
-          <li>Types: <code>int</code>, <code>double</code>, <code>boolean</code>, <code>String</code></li>
-          <li>Integer arithmetic: <code>/</code>, <code>%</code>, and order of operations</li>
-          <li><code>if</code>, <code>else if</code>, <code>else</code></li>
-          <li><code>while</code>, <code>for</code>, <code>do-while</code>, <code>break</code>, <code>continue</code>, <code>return</code></li>
-          <li>Why a loop is correct and why it stops</li>
-          <li>Searching and sorting from Homework 1</li>
+          <li>Calling mehthods</li>
+          <li>Writing methods</li>
+          <li>Paramter Passing</li>
+          <li>Return Values</li>
         </ul>
       </section>
 
-      <section id="shape" data-nav="A Java file">
-        <h2>The structure of a Java file</h2>
+      <section id="methods" data-nav="Methods">
+        <h2>What is a method?</h2>
+          <li>A method is a sequence of statements that has a name, may have paramter values, and may return a value.</li>
+          <li>Methods return at most one value.</li>
+          <li>The return value of a method is returned to a calling method</li>
+          <li>When you call a method, give exactly as many arguments as the method has parameters.</li>
+        </ul>
+        <h3>Example</h3>
+        <p><code>larger</code> takes two ints and returns the bigger one. <code>main</code> is the calling method. Run it, then try the Trace button.</p>
+        <div class="ide" data-sample="larger"></div>
         <ul>
-          <li>The file <code>X.java</code> contains one <code>public class X</code>. The names must match exactly, including capital letters.</li>
-          <li>Class names are CamelCase. Method names are lowerCamelCase.</li>
-          <li>Every method starts with <code>public static</code>.</li>
-          <li>The program starts running at <code>public static void main(String[] args)</code>.</li>
-          <li>Compile with <code>javac X.java</code>, then run with <code>java X</code>.</li>
+          <li><code>larger</code> is the <strong>name</strong> of the method.</li>
+          <li><code>int a, int b</code> are the <strong>parameter variables</strong>. They hold the inputs.</li>
+          <li>The <code>int</code> before the name is the <strong>return type</strong>. Every value this method returns must be an int.</li>
+          <li>In <code>larger(7, 3)</code>, the values 7 and 3 are the <strong>arguments</strong>. The first argument goes into <code>a</code> and the second into <code>b</code>.</li>
+          <li>The return value takes the place of the call. After <code>larger(7, 3)</code> returns 7, the line <code>int x = larger(7, 3);</code> behaves like <code>int x = 7;</code>.</li>
         </ul>
-        <div class="question"><strong>Question:</strong> This program has three problems. Find all of them.</div>
-        <div class="ide" data-sample="totalBroken"></div>
-        <details>
-          <summary>Answer</summary>
-          <ol>
-            <li>Line 3 is missing a semicolon, so the program does not compile.</li>
-            <li>The class is named <code>total</code>, but the file is <code>Total.java</code>. Those names must match, including the capital T.</li>
-            <li>The method is named <code>Main</code>, not <code>main</code>. Java is case sensitive, so there is nothing to run.</li>
-          </ol>
-          <p>Once it runs, <code>"Total: " + a + b</code> is still wrong. Left to right, <code>"Total: " + 12</code> is <code>"Total: 12"</code>, then adding 8 joins text and prints <code>Total: 128</code>, not 20. Parentheses force the addition first:</p>
-          <div class="ide" data-sample="totalFixed"></div>
-        </details>
       </section>
 
-      <section id="charts" data-nav="Flowcharts">
-        <h2>Flowcharts</h2>
-        <div class="legend" aria-hidden="true">
-          <div class="shape io">Input or output</div>
-          <div class="shape op">An instruction<br>set x = …</div>
-          <div class="shape dec"><span>A yes/no<br>question?</span></div>
-        </div>
-        <ul>
-          <li>Ovals are input and output. Rectangles are instructions. Diamonds are yes/no questions.</li>
-          <li>Every diamond has two arrows out, one labeled YES and one labeled NO.</li>
-          <li>Lists start at index 1: <code>list[1]</code>, <code>list[2]</code>, …, <code>list[length]</code>.</li>
-          <li>When you trace, write down the value of every variable each time you reach a diamond.</li>
-        </ul>
-
-        <h3>Warm-up</h3>
-        <div class="chart-wrap"><div data-chart="thirds"></div></div>
-        <div class="question"><strong>Question:</strong> Trace this chart for <code>n = 20</code>. Then try <code>n = 3</code> and <code>n = 2</code>. What problem does it solve?</div>
-        <details>
-          <summary>Answer</summary>
-          <table>
-            <thead><tr><th>n</th><th>c</th><th>n &lt; 3?</th></tr></thead>
-            <tbody>
-              <tr><td>20</td><td>0</td><td>NO</td></tr>
-              <tr><td>17</td><td>1</td><td>NO</td></tr>
-              <tr><td>14</td><td>2</td><td>NO</td></tr>
-              <tr><td>11</td><td>3</td><td>NO</td></tr>
-              <tr><td>8</td><td>4</td><td>NO</td></tr>
-              <tr><td>5</td><td>5</td><td>NO</td></tr>
-              <tr><td>2</td><td>6</td><td>YES, output 6</td></tr>
-            </tbody>
-          </table>
-          <p>For <code>n = 3</code> it outputs 1. For <code>n = 2</code> it outputs 0.</p>
-          <p>It counts how many times you can subtract 3 from <code>n</code> without going negative. That is the same as <code>n / 3</code> using integer division.</p>
-        </details>
-
-        <h3>A chart with a list</h3>
-        <div class="chart-wrap"><div data-chart="lastEqual"></div></div>
-        <div class="question"><strong>Question:</strong> Trace this chart on <code>list = [4, 9, 2, 9]</code>, <code>n = 9</code>. Then trace <code>list = [3, 1, 4]</code>, <code>n = 2</code>. What problem does it solve?</div>
-        <details>
-          <summary>Answer</summary>
-          <table>
-            <caption>[4, 9, 2, 9], n = 9</caption>
-            <thead><tr><th>i</th><th>pos</th><th>i &gt; length?</th><th>list[i] = 9?</th></tr></thead>
-            <tbody>
-              <tr><td>1</td><td>0</td><td>NO</td><td>4 = 9? NO</td></tr>
-              <tr><td>2</td><td>0</td><td>NO</td><td>9 = 9? YES, pos = 2</td></tr>
-              <tr><td>3</td><td>2</td><td>NO</td><td>2 = 9? NO</td></tr>
-              <tr><td>4</td><td>2</td><td>NO</td><td>9 = 9? YES, pos = 4</td></tr>
-              <tr><td>5</td><td>4</td><td>YES, output 4</td><td></td></tr>
-            </tbody>
-          </table>
-          <table>
-            <caption>[3, 1, 4], n = 2</caption>
-            <thead><tr><th>i</th><th>pos</th><th>i &gt; length?</th><th>list[i] = 2?</th></tr></thead>
-            <tbody>
-              <tr><td>1</td><td>0</td><td>NO</td><td>NO</td></tr>
-              <tr><td>2</td><td>0</td><td>NO</td><td>NO</td></tr>
-              <tr><td>3</td><td>0</td><td>NO</td><td>NO</td></tr>
-              <tr><td>4</td><td>0</td><td>YES, output 0</td><td></td></tr>
-            </tbody>
-          </table>
-          <p>It outputs the position of the <strong>last</strong> element equal to <code>n</code>, or 0 if there is none.</p>
-          <p><code>pos</code> starts at 0 and is overwritten every time a match is found, so the value left at the end is the last match.</p>
-        </details>
-      </section>
-
-      <section id="tojava" data-nav="Chart to Java">
-        <h2>From a flowchart to a Java method</h2>
-        <p>This chart multiplies two numbers using only addition and subtracting 1.</p>
-        <div class="chart-wrap"><div data-chart="product"></div></div>
-        <p>The loop keeps going while <code>b</code> is not 0. In Java, that is <code>while (b != 0)</code>. Each pass adds <code>a</code> once.</p>
-        <div class="question"><strong>Question:</strong> Before running, what do <code>product(3, 4)</code> and <code>product(9, 0)</code> return? What about <code>product(-2, 3)</code> and <code>product(3, -1)</code>?</div>
-        <div class="ide" data-sample="product"></div>
-        <details>
-          <summary>Answer</summary>
-          <p><code>product(3, 4)</code>: after 4 passes, <code>p</code> is 12 and <code>b</code> is 0, so it returns 12.</p>
-          <p><code>product(9, 0)</code>: the condition is already false, so it returns 0.</p>
-          <p><code>product(-2, 3)</code> returns −6. Adding a negative number three times is fine.</p>
-          <p><code>product(3, -1)</code> never ends. Subtracting 1 from −1 moves it away from 0. The chart only works when <code>b</code> is at least 0. <code>productAlt</code> works for any two ints.</p>
-        </details>
-      </section>
-
-      <section id="types" data-nav="Types">
-        <h2>Types</h2>
-        <table>
-          <thead><tr><th>Type</th><th>Holds</th><th>Example</th></tr></thead>
-          <tbody>
-            <tr><td><code>int</code></td><td>whole numbers from about −2.1 billion to 2.1 billion</td><td><code>-17</code></td></tr>
-            <tr><td><code>double</code></td><td>decimal numbers</td><td><code>2.25</code></td></tr>
-            <tr><td><code>boolean</code></td><td><code>true</code> or <code>false</code></td><td><code>9 % 2 == 1</code></td></tr>
-            <tr><td><code>String</code></td><td>text</td><td><code>"Total:"</code></td></tr>
-          </tbody>
-        </table>
-        <p>Other number types from class: <code>byte</code>, <code>short</code>, <code>long</code> (whole numbers of different sizes), <code>float</code> (a less precise decimal, written <code>3.3F</code>), and <code>char</code> (one character).</p>
-        <div class="two">
-          <div>
-            <h3>Converting between types</h3>
-            <p><code>double q = 4;</code> is allowed. The int becomes <code>4.0</code>.</p>
-            <p><code>int x = 4.9;</code> does not compile. You can't put a <code>double</code> into an <code>int</code> without a cast.</p>
-            <p>A cast drops the decimal part: <code>(int) 4.9</code> is 4, and <code>(int) -4.9</code> is −4.</p>
-          </div>
-          <div>
-            <h3>Order of operations</h3>
-            <p><code>*</code>, <code>/</code>, and <code>%</code> happen before <code>+</code> and <code>-</code>.</p>
-            <p>Operators at the same level go left to right. Parentheses go first.</p>
-          </div>
-        </div>
-        <p>A condition in an <code>if</code> or <code>while</code> must be a <code>boolean</code>. <code>if (1)</code> does not compile.</p>
-      </section>
-
-      <section id="ints" data-nav="Integer math">
-        <h2>Integer math</h2>
-        <ul>
-          <li><code>int / int</code> gives an int. The decimal part is dropped, so the result rounds toward zero: <code>9 / 4</code> is 2 and <code>-9 / 4</code> is −2.</li>
-          <li><code>a % b</code> is the remainder after dividing <code>a</code> by <code>b</code>. Its sign matches <code>a</code>: <code>-9 % 4</code> is −1.</li>
-          <li><code>+</code> with a <code>String</code> on either side joins text instead of adding.</li>
-        </ul>
-        <div class="question"><strong>Question:</strong> Predict all eleven lines before running.</div>
-        <div class="ide" data-sample="arith"></div>
-        <details>
-          <summary>Answer</summary>
-          <ul>
-            <li><code>2 + 3 * 4</code> = <code>2 + 12</code> = 14</li>
-            <li><code>25 - 10 % 6</code> = <code>25 - 4</code> = 21</li>
-            <li><code>(25 - 10) % 6</code> = <code>15 % 6</code> = 3</li>
-            <li><code>19 / 5</code> = 3, and <code>19 % 5</code> = 4, because 19 = 5 × 3 + 4</li>
-            <li><code>5 % 19</code> = 5, because 19 goes into 5 zero times with 5 left over</li>
-            <li><code>-19 / 5</code> = −3. The exact answer is −3.8, and dropping the decimal gives −3, not −4.</li>
-            <li><code>-19 % 5</code> = −4, because −3 × 5 = −15, and −19 − (−15) = −4</li>
-            <li><code>1 + 2 + "3"</code>: left to right, <code>1 + 2</code> is 3, then <code>3 + "3"</code> is <code>"33"</code></li>
-            <li><code>"1" + 2 + 3</code>: <code>"1" + 2</code> is <code>"12"</code>, then <code>"12" + 3</code> is <code>"123"</code></li>
-            <li><code>"1" + (2 + 3)</code>: the parentheses go first, so it is <code>"1" + 5</code> = <code>"15"</code></li>
-          </ul>
-        </details>
-
-        <h3>doubles and overflow</h3>
-        <div class="question"><strong>Question:</strong> Predict each line. Which ones are surprising?</div>
-        <div class="ide" data-sample="doubles"></div>
-        <details>
-          <summary>Answer</summary>
-          <ul>
-            <li>A <code>double</code> can't store 0.1 or 0.3 exactly, so small errors show up in <code>0.1 * 3</code> and <code>0.3 - 0.2</code>.</li>
-            <li><code>9 / 4</code> is 2 because both sides are ints. <code>9 / 4.0</code> is 2.25 because one side is a double.</li>
-            <li><code>double q = 9 / 4;</code> prints <code>2.0</code>. The division happens first, as ints, and gives 2. Only then is 2 turned into a double.</li>
-            <li><code>Integer.MIN_VALUE</code> is the smallest int. Subtracting 1 wraps around to the largest int, 2147483647. This is overflow in the other direction.</li>
-          </ul>
-        </details>
-      </section>
-
-      <section id="bool" data-nav="&amp;&amp; and ||">
-        <h2><code>&amp;&amp;</code> and <code>||</code></h2>
-        <ul>
-          <li><code>a &amp;&amp; b</code> is true only if both are true. If <code>a</code> is false, Java skips <code>b</code>.</li>
-          <li><code>a || b</code> is true if at least one is true. If <code>a</code> is true, Java skips <code>b</code>.</li>
-          <li><code>!a</code> flips true and false.</li>
-        </ul>
-        <div class="question"><strong>Question:</strong> <code>check</code> prints a line every time it is called. What is the full output?</div>
-        <div class="ide" data-sample="shorts"></div>
-        <details>
-          <summary>Answer</summary>
-          <pre class="expect">false
-check 2
-true
-true
-check 4
-true</pre>
-          <ul>
-            <li><code>2 &gt; 8 &amp;&amp; check(1)</code>: the left side is false, so <code>check(1)</code> never runs.</li>
-            <li><code>2 &lt; 8 &amp;&amp; check(2)</code>: the left side is true, so <code>check(2)</code> runs. It prints <code>check 2</code> and returns <code>2 &lt; 5</code>, which is true.</li>
-            <li><code>2 &lt; 8 || check(3)</code>: the left side is true, so <code>check(3)</code> never runs.</li>
-            <li><code>2 &gt; 8 || check(4)</code>: the left side is false, so <code>check(4)</code> runs and returns true.</li>
-          </ul>
-        </details>
-      </section>
-
-      <section id="ifs" data-nav="if / else">
-        <h2><code>if</code> and <code>else</code></h2>
-        <div class="two">
-          <pre class="static-code">if (condition) {
-    // runs if condition is true
-}</pre>
-          <pre class="static-code">if (condition) {
-    // runs if true
-} else {
-    // runs if false
-}</pre>
-        </div>
-        <ul>
-          <li>In an <code>if</code> / <code>else if</code> / <code>else</code> chain, Java runs only the <strong>first</strong> branch whose condition is true and skips the rest.</li>
-          <li>Separate <code>if</code> statements are each checked on their own, so more than one can run.</li>
-          <li>An <code>else</code> belongs to the <code>if</code> right before it.</li>
-        </ul>
-
-        <h3>Movie tickets</h3>
-        <p>Given an age, print CHILD if the age is under 13, SENIOR if it is 65 or more, and ADULT otherwise.</p>
-        <div class="chart-wrap"><div data-chart="ticket"></div></div>
-        <div class="question"><strong>Question:</strong> This version uses separate <code>if</code> statements. What does it print for 10? For 70? For 30? Change the input and run it.</div>
-        <div class="ide" data-sample="ticketWrong"></div>
-        <details>
-          <summary>Answer</summary>
-          <p>For 10, it prints <code>CHILD</code> and <code>ADULT</code>. The first <code>if</code> is true. Then <code>age &gt;= 65</code> is false, and the <code>else</code> belongs only to that second <code>if</code>.</p>
-          <p>For 70, it prints <code>SENIOR</code>. For 30, it prints <code>ADULT</code>.</p>
-          <p>The fix is an <code>else if</code> chain, so only one branch runs:</p>
-          <div class="ide" data-sample="ticketRight"></div>
-          <p>The order of the chain matters. Age 70 is not under 13, so it reaches the senior test. Age 13 is not a child, so it is an adult.</p>
-        </details>
-
-        <h3>Using <code>return</code> instead of <code>else</code></h3>
-        <div class="question"><strong>Question:</strong> This version also uses separate <code>if</code> statements. Why does it work?</div>
-        <div class="ide" data-sample="ticketReturn"></div>
-        <details>
-          <summary>Answer</summary>
-          <p><code>return</code> leaves the method immediately. Once a label is returned, the <code>if</code> statements below it never run.</p>
-        </details>
-
-        <h3>Every path must return</h3>
-        <pre class="static-code">public static int abs(int n) {
-    if (n &gt;= 0) {
-        return n;
-    }
-    if (n &lt; 0) {
-        return -n;
-    }
-}</pre>
-        <div class="question"><strong>Question:</strong> Every int is at least 0 or less than 0, so this always returns something. Why doesn't it compile?</div>
-        <details>
-          <summary>Answer</summary>
-          <p>The compiler doesn't reason about what <code>n</code> could be. It sees two separate <code>if</code> statements that might both be false, and then the method reaches the end without a <code>return</code>. Replacing the last <code>if</code> with <code>else</code>, or with a plain <code>return -n;</code>, fixes it.</p>
-        </details>
-      </section>
-
-      <section id="whiles" data-nav="while">
-        <h2><code>while</code> loops</h2>
-        <pre class="static-code">while (condition) {
-    // body
-}</pre>
-        <ul>
-          <li>The condition is checked <strong>before</strong> each pass. If it is false at the start, the body runs zero times.</li>
-          <li>Something in the body must change a variable in the condition, or the loop never ends.</li>
-          <li><code>break</code> leaves the loop. <code>continue</code> skips the rest of the body and goes back to the condition. <code>return</code> leaves the whole method.</li>
-        </ul>
-        <div class="question"><strong>Question:</strong> Which numbers are printed?</div>
-        <div class="ide" data-sample="branch"></div>
-        <details>
-          <summary>Answer</summary>
-          <p><code>1, 2, 3, 5, 6, 7, 9</code>. At 4 and 8, <code>continue</code> skips the print. At 10, <code>break</code> ends the loop, so 10 is not printed and 11 through 14 are never reached.</p>
-        </details>
-
-        <h3>Product of digits</h3>
-        <p>For <code>n &gt;= 1</code>: <code>n % 10</code> is the last digit, and <code>n / 10</code> removes the last digit.</p>
-        <div class="chart-wrap"><div data-chart="digitsProd"></div></div>
-        <div class="question"><strong>Question:</strong> Trace <code>productDigits(234)</code>. Write <code>n</code> and <code>p</code> after each pass. Then trace <code>productDigits(105)</code>.</div>
-        <div class="ide" data-sample="digitsProd"></div>
-        <details>
-          <summary>Answer</summary>
-          <table>
-            <thead><tr><th>n before</th><th>digit multiplied</th><th>p after</th><th>n after</th></tr></thead>
-            <tbody>
-              <tr><td>234</td><td>4</td><td>4</td><td>23</td></tr>
-              <tr><td>23</td><td>3</td><td>12</td><td>2</td></tr>
-              <tr><td>2</td><td>2</td><td>24</td><td>0</td></tr>
-            </tbody>
-          </table>
-          <p><code>n</code> is now 0, so the loop stops and returns 24.</p>
-          <p><code>productDigits(105)</code> returns 0, because one of the digits is 0. After that, later digits cannot change the product.</p>
-        </details>
-
-        <h3>Least common multiple by adding</h3>
-        <p>For <code>a, b &gt;= 1</code>: start at <code>m = a</code> and keep adding <code>a</code> until <code>m</code> is divisible by <code>b</code>.</p>
-        <div class="chart-wrap"><div data-chart="lcm"></div></div>
-        <div class="question"><strong>Question:</strong> Trace <code>lcm(4, 6)</code> and <code>lcm(7, 3)</code>. Then edit the last line to <code>lcm(5, 0)</code> and run it. What happens, and why?</div>
-        <div class="ide" data-sample="lcm"></div>
-        <details>
-          <summary>Answer</summary>
-          <p><code>lcm(4, 6)</code>: m = 4, then 8, then 12. 12 is divisible by 6. Output 12.</p>
-          <p><code>lcm(7, 3)</code>: m = 7, then 14, then 21. Output 21.</p>
-          <p><code>lcm(5, 0)</code> never ends. Remainder by zero is an error, or if you rewrite the test, adding 5 never makes a remainder of 0 against 0.</p>
-          <p>When both inputs are at least 1, each pass adds <code>a</code> to <code>m</code>, so <code>m</code> grows and will eventually hit a multiple of <code>b</code>. With a 0, that is no longer true.</p>
-        </details>
-
-        <h3>Reading until −1</h3>
-        <p>Read numbers one at a time until you read −1. The −1 is a stop signal, not part of the data. Count how many of the numbers are negative.</p>
-        <div class="chart-wrap"><div data-chart="negatives"></div></div>
-        <div class="question"><strong>Question:</strong> What is the output for <code>3 -4 0 -2 8 -1</code>? Then try <code>4 1 0 -1</code> and <code>-1</code> in the input box.</div>
-        <div class="ide" data-sample="negatives"></div>
-        <details>
-          <summary>Answer</summary>
-          <p><code>3 -4 0 -2 8 -1</code> outputs 2: −4 and −2. Zero is not negative, and −1 is the stop signal so it is not counted.</p>
-          <p><code>4 1 0 -1</code> outputs 0.</p>
-          <p><code>-1</code> outputs 0. <code>cur</code> is −1 right away, so the loop body never runs.</p>
-        </details>
-        <div class="question"><strong>Question:</strong> Edit the program so it also prints the smallest number it read, not counting the −1.</div>
-        <details>
-          <summary>Answer</summary>
-          <p>Add <code>int min = cur;</code> before the loop, but only after reading the first number. If that first number is already −1, there is no data. Inside the loop, add <code>if (cur &lt; min) { min = cur; }</code>. After the loop, add <code>System.out.println(min);</code>. For <code>3 -4 0 -2 8 -1</code>, it prints −4.</p>
-        </details>
-      </section>
-
-      <section id="fors" data-nav="for">
-        <h2><code>for</code> loops</h2>
-        <pre class="static-code">for (initialization; condition; update) {
-    // body
-}</pre>
-        <p>The initialization runs once. Then the loop repeats three steps: check the condition, run the body, run the update. It stops when the condition is false.</p>
-        <p>Any <code>for</code> loop can be written as a <code>while</code> loop:</p>
-        <div class="two">
-          <pre class="static-code">for (int i = 1; i &lt;= 3; i++) {
-    System.out.println(i);
-}</pre>
-          <pre class="static-code">int i = 1;
-while (i &lt;= 3) {
-    System.out.println(i);
-    i++;
-}</pre>
-        </div>
-        <p>A variable declared in the <code>for</code> initialization only exists inside the loop.</p>
-
-        <h3>Multiples of 3 counting down</h3>
-        <p>Goal: print every multiple of 3 from the input down to 0, including 0. Both programs below miss 0.</p>
-        <div class="question"><strong>Question:</strong> What should these print for input 10? What do they actually print? Find the bug.</div>
-        <div class="ide" data-sample="threesWhile"></div>
-        <div class="ide" data-sample="threesFor"></div>
-        <details>
-          <summary>Answer</summary>
-          <p>They should print 9, 6, 3, 0, but they only print 9, 6, 3.</p>
-          <p>The condition is <code>i &gt; 0</code>, so 0 is never visited. The fix is <code>i &gt;= 0</code>. Edit the code and run it again.</p>
-          <p>With input 0, the buggy versions print nothing at all, even though 0 is a multiple of 3.</p>
-        </details>
-        <div class="question"><strong>Question:</strong> In the <code>for</code> version, add <code>System.out.println(i);</code> after the loop. What happens?</div>
-        <details>
-          <summary>Answer</summary>
-          <p>It does not compile. <code>i</code> was declared in the <code>for</code> initialization, so it doesn't exist after the loop.</p>
-        </details>
-
-        <h3>Stepping by 3</h3>
-        <p>Instead of checking every number, snap to the nearest multiple of 3 at or below the input, then subtract 3 each time. The initialization is empty because <code>j</code> is set before the loop. The semicolons are still required.</p>
-        <div class="ide" data-sample="threesStep"></div>
-        <p>The same start can be written with the <code>? :</code> operator: <code>condition ? valueIfTrue : valueIfFalse</code>.</p>
-        <div class="ide" data-sample="ternary"></div>
-
-        <h3><code>do-while</code></h3>
-        <pre class="static-code">do {
-    // body
-} while (condition);</pre>
-        <p>The body runs first, and then the condition is checked. So the body always runs at least once.</p>
-        <div class="question"><strong>Question:</strong> What does this print?</div>
-        <div class="ide" data-sample="doWhile"></div>
-        <details>
-          <summary>Answer</summary>
-          <pre class="expect">do-while:
-0
-while:
-done</pre>
-          <p>The <code>do-while</code> prints 0 before it checks <code>2 &lt; 0</code>. The <code>while</code> loop checks <code>0 &lt; 0</code> first, which is false, so its body never runs.</p>
-        </details>
-      </section>
-
-      <section id="reason" data-nav="Loop reasoning">
-        <h2>Why a loop is correct, and why it stops</h2>
-        <p>An algorithm is correct if, for every input, it stops and gives the right output. For a loop you show two things:</p>
-        <ul>
-          <li><strong>Loop invariant:</strong> something that is true before the loop starts and stays true after every pass.</li>
-          <li><strong>Termination measure:</strong> a positive quantity that gets smaller on every pass. Since it can't shrink forever, the loop must stop.</li>
-        </ul>
-        <div class="ide" data-sample="factorial"></div>
-        <div class="question"><strong>Question:</strong> Trace <code>factorial(4)</code>. What is the loop invariant? What is the termination measure?</div>
-        <details>
-          <summary>Answer</summary>
-          <table>
-            <thead><tr><th>i</th><th>result</th><th>k − i + 1</th></tr></thead>
-            <tbody>
-              <tr><td>1</td><td>1</td><td>4</td></tr>
-              <tr><td>2</td><td>1</td><td>3</td></tr>
-              <tr><td>3</td><td>2</td><td>2</td></tr>
-              <tr><td>4</td><td>6</td><td>1</td></tr>
-              <tr><td>5</td><td>24</td><td>0, and <code>i &lt;= k</code> is false</td></tr>
-            </tbody>
-          </table>
-          <p><strong>Invariant:</strong> <code>result</code> equals <code>(i - 1)!</code>, and <code>i &lt;= k + 1</code>. When the loop ends, <code>i == k + 1</code>, so <code>result</code> is <code>k!</code>.</p>
-          <p><strong>Termination measure:</strong> <code>k - i + 1</code>. It is positive whenever the body runs, and it drops by 1 each pass.</p>
-        </details>
-        <div class="question"><strong>Question:</strong> Give an invariant and a termination measure for the earlier loops: product of digits, lcm, and reading until −1.</div>
-        <details>
-          <summary>Answer</summary>
-          <ul>
-            <li><strong>Product of digits:</strong> <code>p</code> is the product of the digits already removed from <code>n</code>. The measure is <code>n</code>.</li>
-            <li><strong>lcm:</strong> <code>m</code> is a multiple of the original <code>a</code>, and no smaller positive multiple of <code>a</code> is divisible by <code>b</code>. The measure can be the gap down to the least common multiple, or you can argue that <code>m</code> grows by <code>a</code> each time and cannot pass <code>a * b</code>.</li>
-            <li><strong>Reading until −1:</strong> <code>count</code> is the number of negatives among the numbers read so far. There is no variable that works as a measure. The loop stops only because the input eventually contains −1.</li>
-          </ul>
-        </details>
-      </section>
-
-      <section id="practice" data-nav="Practice">
-        <h2>Practice problems</h2>
-        <p>Write each one on paper first, then open the answer.</p>
-
-        <h3>1. Fahrenheit to Celsius</h3>
-        <p>Write <code>public static int f2c(int f)</code> that converts Fahrenheit to Celsius, rounded toward zero, using only <code>int</code>. The formula is C = (F − 32) × 5/9.</p>
-        <div class="question"><strong>Question:</strong> Does <code>(f - 32) / 9 * 5</code> work? Try <code>f = 40</code>, where the exact answer is 4.44…. And what is <code>212 * 5 / 9 - 32</code>?</div>
-        <details>
-          <summary>Answer</summary>
-          <p><code>(f - 32) / 9 * 5</code> gives 0 for 40. <code>8 / 9</code> is 0, and then multiplying by 5 still gives 0. The correct answer is 4.</p>
-          <p>The fix is to multiply before dividing: <code>(f - 32) * 5 / 9</code>. Then <code>8 * 5 / 9</code> is <code>40 / 9</code>, which is 4.</p>
-          <p><code>212 * 5 / 9 - 32</code> is 85, because you subtracted 32 at the end instead of from 212 first.</p>
-          <div class="ide" data-sample="f2c"></div>
-        </details>
-
-        <h3>2. Days to weeks and leftover days</h3>
-        <p>Write <code>weeks(d)</code> and <code>leftover(d)</code> for a number of days <code>d &gt;= 0</code>. For example, 17 days is 2 weeks and 3 leftover days.</p>
-        <details>
-          <summary>Answer</summary>
-          <p>A week is 7 days. <code>d / 7</code> is the weeks. <code>d % 7</code> is what's left.</p>
-          <div class="ide" data-sample="weeks"></div>
-        </details>
-
-        <h3>3. Triangle inequality</h3>
-        <p>Three side lengths can make a triangle if each pair adds up to more than the third side. Write <code>public static boolean isTriangle(int a, int b, int c)</code> in one <code>return</code> statement. Check 3-4-5, 1-2-3, 2-2-5, and 5-5-5.</p>
-        <details>
-          <summary>Answer</summary>
-          <p>3-4-5 and 5-5-5 are triangles. 1-2-3 is not, because 1 + 2 is not greater than 3. 2-2-5 is not, because 2 + 2 is not greater than 5.</p>
-          <div class="ide" data-sample="triangle"></div>
-        </details>
-
-        <h3>4. Count the digits</h3>
-        <p>For <code>n &gt;= 0</code>, return how many digits <code>n</code> has. What should 0 return? What about 1200?</p>
-        <details>
-          <summary>Answer</summary>
-          <p>0 is written with one digit, so return 1 in that case. Otherwise count how many times you can do <code>n = n / 10</code> until <code>n</code> is 0.</p>
-          <p>1200 has 4 digits. 405 has 3. The zeros in the middle and at the end still count, because they are digits of the number.</p>
-          <div class="ide" data-sample="countDigits"></div>
-        </details>
-
-        <h3>5. Sum of the even numbers</h3>
-        <p>For <code>n &gt;= 0</code>, return the sum of the even numbers from 1 to <code>n</code>. Find <code>evenSum(10)</code>, <code>evenSum(1)</code>, and <code>evenSum(4)</code>.</p>
-        <details>
-          <summary>Answer</summary>
-          <p><code>evenSum(10)</code> is 30: 2 + 4 + 6 + 8 + 10. <code>evenSum(1)</code> is 0. <code>evenSum(4)</code> is 6.</p>
-          <div class="ide" data-sample="evenSum"></div>
-        </details>
-
-        <h3>6. Perfect numbers</h3>
-        <p>A perfect number equals the sum of its proper divisors (every positive divisor except itself). Write <code>public static boolean isPerfect(int n)</code>. Why can you stop the divisor loop when <code>d * d &gt; n</code>?</p>
-        <details>
-          <summary>Answer</summary>
-          <p>If <code>d</code> divides <code>n</code>, then so does <code>n / d</code>. Once <code>d * d &gt; n</code>, the partner <code>n / d</code> is smaller than <code>d</code> and has already been counted. 6 and 28 are perfect. 12 and 1 are not.</p>
-          <div class="ide" data-sample="perfect"></div>
-        </details>
-      </section>
-
-      <section id="search" data-nav="Search and sort">
-        <h2>Searching and sorting</h2>
-
-        <h3>Binary search</h3>
-        <p>Binary search finds a number <code>n</code> in a <strong>sorted</strong> list:</p>
+      <section id="implementing" data-nav="Implementing Methods">
+        <h2>How to Implement a Method</h2>
         <ol>
-          <li>Set <code>lo = 1</code> and <code>hi = length</code>.</li>
-          <li>If <code>lo &gt; hi</code>, output false.</li>
-          <li>Set <code>mid</code> = (<code>lo + hi</code>) / 2, rounded down.</li>
-          <li>If <code>list[mid] = n</code>, output true.</li>
-          <li>If <code>list[mid] &gt; n</code>, set <code>hi = mid - 1</code>. Otherwise set <code>lo = mid + 1</code>. Go back to step 2.</li>
+          <li>Pick a name for the method</li>
+          <li>Declare a variable for each method (aka paramter variables)</li>
+          <li>Specify the type of the return value</li>
+          <li>Add the <code>public static</code> modifiers</li>
+          <li>Write the method body, include return statement(s)</li>
         </ol>
-        <div class="question"><strong>Question:</strong> Trace binary search on <code>[2, 5, 8, 11, 16, 23, 31, 40]</code> for <code>n = 16</code>, then for <code>n = 9</code>.</div>
+        <div class="question"><strong>Question:</strong> Write the method header (no method body yet) for a method that returns the absolute value of an integer.</div>
         <details>
           <summary>Answer</summary>
-          <table>
-            <caption>n = 16</caption>
-            <thead><tr><th>lo</th><th>hi</th><th>mid</th><th>list[mid]</th><th>next step</th></tr></thead>
-            <tbody>
-              <tr><td>1</td><td>8</td><td>4</td><td>11</td><td>11 &lt; 16, so lo = 5</td></tr>
-              <tr><td>5</td><td>8</td><td>6</td><td>23</td><td>23 &gt; 16, so hi = 5</td></tr>
-              <tr><td>5</td><td>5</td><td>5</td><td>16</td><td>equal, output true</td></tr>
-            </tbody>
-          </table>
-          <table>
-            <caption>n = 9</caption>
-            <thead><tr><th>lo</th><th>hi</th><th>mid</th><th>list[mid]</th><th>next step</th></tr></thead>
-            <tbody>
-              <tr><td>1</td><td>8</td><td>4</td><td>11</td><td>11 &gt; 9, so hi = 3</td></tr>
-              <tr><td>1</td><td>3</td><td>2</td><td>5</td><td>5 &lt; 9, so lo = 3</td></tr>
-              <tr><td>3</td><td>3</td><td>3</td><td>8</td><td>8 &lt; 9, so lo = 4</td></tr>
-              <tr><td>4</td><td>3</td><td></td><td></td><td>lo &gt; hi, output false</td></tr>
-            </tbody>
-          </table>
-        </details>
-        <div class="question"><strong>Question:</strong> What goes wrong on an unsorted list? Can it say true when the number isn't there? Can it say false when the number is there?</div>
-        <details>
-          <summary>Answer</summary>
-          <p>It can say false when the number is there. On <code>[8, 1, 4]</code> searching for 8: <code>mid = 2</code>, and 1 &lt; 8, so <code>lo = 3</code>. Then <code>mid = 3</code>, and 4 &lt; 8, so <code>lo = 4</code>. Now <code>lo &gt; hi</code>, so it outputs false, even though 8 is in the list.</p>
-          <p>It can never say true when the number isn't there, because it only outputs true after finding <code>list[mid] = n</code>.</p>
-        </details>
-
-        <h3>Selection sort</h3>
-        <p>For position 1, then 2, then 3, and so on: find the smallest number in the rest of the list and swap it into that position.</p>
-        <div class="question"><strong>Question:</strong> Sort <code>[8, 3, 5, 1, 7]</code>. Write the list after each swap.</div>
-        <details>
-          <summary>Answer</summary>
-          <ol>
-            <li>Position 1: the smallest is 1. Swap 8 and 1 to get <code>[1, 3, 5, 8, 7]</code>.</li>
-            <li>Position 2: the smallest of the rest is 3, which is already there. The list stays <code>[1, 3, 5, 8, 7]</code>.</li>
-            <li>Position 3: the smallest of the rest is 5, already there. The list stays <code>[1, 3, 5, 8, 7]</code>.</li>
-            <li>Position 4: the smallest of the rest is 7. Swap 8 and 7 to get <code>[1, 3, 5, 7, 8]</code>.</li>
-          </ol>
-          <p>The last position doesn't need its own step. Once the first four are in place, the last number must be the largest.</p>
-        </details>
-
-        <h3>Changing a flowchart</h3>
-        <p>Go back to <a href="#charts">the list chart</a> that outputs the position of the last element equal to <code>n</code>.</p>
-        <div class="question"><strong>Question:</strong> What does each change do? Give an input where the output is different from the original.</div>
-        <ol>
-          <li>Replace <code>list[i] = n?</code> with <code>list[i] &gt; n?</code></li>
-          <li>Replace <code>Output: pos</code> with <code>Output: list[pos]</code></li>
-          <li>Remove <code>set pos = 0</code>, and start with no value in <code>pos</code></li>
-        </ol>
-        <details>
-          <summary>Answer</summary>
-          <ol>
-            <li>It finds the last element <strong>greater than</strong> <code>n</code>. On <code>[4, 9, 2, 9]</code>, <code>n = 9</code>, it outputs 0 instead of 4, because nothing is greater than 9.</li>
-            <li>It outputs the element itself instead of its position. On <code>[4, 9, 2, 9]</code>, <code>n = 9</code>, it outputs 9 instead of 4. When nothing is found, <code>pos</code> is 0, and <code>list[0]</code> does not exist.</li>
-            <li>If nothing equals <code>n</code>, the chart outputs a variable that was never set. On <code>[3, 1, 4]</code>, <code>n = 2</code>, that is an error instead of 0.</li>
-          </ol>
+          <pre class="static-code">public static int abs(int n)</pre>
+          <ul>
+            <li><code>public static</code> are the modifiers every method in this course starts with.</li>
+            <li><code>int</code> is the return type. The absolute value of an int is an int.</li>
+            <li><code>abs</code> is the name. Any clear name works, such as <code>absoluteValue</code>.</li>
+            <li><code>(int n)</code> declares one parameter variable named <code>n</code> of type <code>int</code>.</li>
+          </ul>
         </details>
       </section>
 
-      <section id="build" data-nav="Build a flowchart">
-        <h2>Build a flowchart</h2>
-        <p>Drag shapes onto the canvas, connect them with arrows, and fill in each step. Then run the chart, or step through it one shape at a time and watch the variables change.</p>
-        <div class="question"><strong>Question:</strong> Build a chart for one of these, then test it on a few inputs.</div>
-        <ol>
-          <li>Count how many elements of a list are odd.</li>
-          <li>Selection sort, using <code>minIndex</code> and <code>swap</code>.</li>
-          <li>Read numbers with <code>getNext</code> until −1, and output the smallest one.</li>
-          <li>Binary search, using <code>floor</code> for <code>mid</code>.</li>
-        </ol>
-        <div id="builder" class="fb">
-          <div class="fb-bar">
-            <span class="fb-palette">
-              <button type="button" class="fb-pal io" data-add="io">Input / Output</button>
-              <button type="button" class="fb-pal op" data-add="op">Instruction</button>
-              <button type="button" class="fb-pal dec" data-add="dec"><span>Question?</span></button>
-            </span>
-            <span class="fb-tools">
-              <select data-example aria-label="Load an example">
-                <option value="">Load an example…</option>
-                <option value="thirds">How many 3s fit</option>
-                <option value="product">Product of a list</option>
-              </select>
-              <button type="button" class="ghost" data-clear>Clear</button>
-            </span>
-          </div>
-          <div class="fb-main">
-            <svg class="fb-canvas" role="application" aria-label="Flowchart canvas"></svg>
-            <p class="fb-status" aria-live="polite"></p>
-          </div>
-          <div class="fb-below">
-            <aside class="fb-panel"></aside>
-            <div class="fb-run">
-              <h4>Run the chart</h4>
-              <div class="fb-inputs"></div>
-              <div class="fb-run-buttons">
-                <button type="button" data-run>Run</button>
-                <button type="button" class="ghost" data-step>Step</button>
-                <button type="button" class="ghost" data-reset>Reset</button>
-              </div>
-              <p class="fb-hint">With Step, the highlighted shape is the one that runs next.</p>
-              <pre class="fb-out stdout quiet">Output</pre>
-              <div class="fb-vars"></div>
-            </div>
-          </div>
-        </div>
+      <section id="params" data-nav="Paramter Passing">
+        <h2>Parameter Passing</h2>
+        <ul>
+          <li>When a method is called with arguments, each parameter value is initialized with the corresponding argument</li>
+          <li>An argument can be a value, a variable, or an expression such as <code>x + 1</code>.</li>
+          <li>Parameter variables only exist inside the method. They are created when the method is called and disappear when it returns. Code in another method cannot use them.</li>
+          <li>The same goes for any variable you declare inside a method.</li>
+          <li>In Java, a method can never change the contents of a variable that was passed as an argument. The parameter variable holds a copy of the value.</li>
+        </ul>
+        <div class="question"><strong>Question:</strong> What does the program print?</div>
+        <div class="ide" data-sample="brokenAbs"></div>
+        <details>
+          <summary>Answer</summary>
+          <pre class="expect">inside abs, n is 5
+in main, n is -5</pre>
+          <ol>
+            <li><code>main</code> creates its own variable <code>n</code> with the value −5.</li>
+            <li><code>abs(n)</code> is called. Java creates a <strong>new</strong> parameter variable, also called <code>n</code>, and gives it a copy of the value −5. There are now two separate variables that happen to share a name. Each method can only see its own.</li>
+            <li><code>n &lt; 0</code> is true inside <code>abs</code>, so <code>n = -n</code> changes the parameter to 5. The first line prints 5. The <code>n</code> in <code>main</code> was not touched.</li>
+            <li><code>return n</code> sends the value 5 back to <code>main</code>. But <code>abs(n);</code> is a statement by itself, so the returned 5 is thrown away.</li>
+            <li>When <code>abs</code> finishes, its parameter variable stops existing, and the change to it is gone with it.</li>
+          </ol>
+          <p>So <code>main</code>'s <code>n</code> is still −5. The fix is to use the return value by assigning it to a variable:</p>
+          <div class="ide" data-sample="fixedAbs"></div>
+          <p>Here <code>x</code> is still −5, because only <code>y</code> received the result. If you want <code>x</code> itself to change, write <code>x = abs(x);</code>.</p>
+          <p>Notice the comment in the fixed version. Hopefully putting different variable names here makes it easier to see that these are two different variables</p>
+        </details>
+      </section>
+
+      <section id="returns" data-nav="Return Values">
+        <h2>Returning from a Method</h2>
+        <ul>
+          <li>A <code>return</code> statement can return a variable or an expression, such as <code>return n;</code>, <code>return -n;</code>, or <code>return a + b;</code>.</li>
+          <li>Upon executing a <code>return</code> statement, the code will exit the method immediately. Anything after will not be processed.</li>
+          <li>A <code>return</code> statement can also return nothing and is used when you want to retun early from a <code>void</code> function</li>
+        </ul>
+        <h3>Returning a variable</h3>
+        <p>This version of <code>abs</code> copies the argument into a new variable, makes that variable positive, and returns it.</p>
+        <div class="ide" data-sample="absVariable"></div>
+        <div class="question"><strong>Question:</strong> How would you change <code>abs</code> so it returns an expression and does not need the extra variable?</div>
+        <details>
+          <summary>Answer</summary>
+          <p>Return <code>-n</code> directly when <code>n</code> is negative. Otherwise return <code>n</code> itself:</p>
+          <div class="ide" data-sample="absExpression"></div>
+          <ul>
+            <li><code>-n</code> is an expression. Java computes its value and returns it, so no variable is needed.</li>
+            <li>When <code>n</code> is negative, the first <code>return</code> exits the method, so the second one never runs.</li>
+            <li>Every path still returns a value.</li>
+          </ul>
+        </details>
+
+        <h3>Returning early from a void method</h3>
+        <p>A <code>void</code> method returns no value, but you can still write <code>return;</code> to stop it early. This is useful when the method should only do its real work if some checks pass.</p>
+        <p>This method sells a ticket. It must check three things first: the age is valid, the price is valid, and the balance covers the price. Here the checks are nested <code>if</code> statements:</p>
+        <div class="ide" data-sample="nestedTicket"></div>
+        <div class="question"><strong>Question:</strong> What does this program print? Rewrite <code>buyTicket</code> so that validation of price and age occurs first, and each failed check prints its message and leaves the method right away.</div>
+        <details>
+          <summary>Answer</summary>
+          <pre class="expect">Ticket bought. Change: 35
+Invalid age
+Invalid price
+Not enough money</pre>
+          <p>Here is the same method with early returns. It prints exactly the same output:</p>
+          <div class="ide" data-sample="earlyTicket"></div>
+          <p>Why programmers prefer this:</p>
+          <ul>
+            <li><strong>Stop as soon as you know.</strong> If the age is invalid, nothing else matters. <code>return;</code> leaves immediately, so the method does not keep checking the price and balance for a ticket that can never be sold.</li>
+            <li><strong>Each check sits next to its message.</strong> In the nested version, <code>Invalid age</code> is at the very bottom, far from the <code>age</code> check it belongs to.</li>
+            <li><strong>No staircase of braces.</strong> The nested version gets one level deeper for every check. With ten checks it would be very hard to read. The early-return version stays flat.</li>
+            <li><strong>The main work is at the end, unindented.</strong> By the time you reach the last line, you know every check passed.</li>
+          </ul>
+          <p>This only works in a <code>void</code> method because <code>return;</code> has no value. In a method with a return type, you would write <code>return</code> followed by a value instead, as in <code>abs</code>.</p>
+        </details>
       </section>
 
       <section id="cards" data-nav="Flashcards">
