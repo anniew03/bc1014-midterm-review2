@@ -24,16 +24,16 @@
           <ul>
             <li>These problems and concepts are different from the first review site and covers material from 10/12-10/19.</li>
             <li>The code boxes run in a simplified Java simulator in your browser. It handles the Java used in this course, but it isn't real Java and won't catch every compile error.</li>
-            <li>The flowchart builder is a practice tool. On the exam, use the flowchart notation from class.</li>
             <li>The exam is on paper, so practice working through problems by hand, not just running them here.</li>
           </ul>
         </div>
         <p>The exam is closed book, pen and paper, with no cheat sheet. It covers all lectures and homework up to the midterm.</p>
         <ul>
-          <li>Calling mehthods</li>
+          <li>Calling methods</li>
           <li>Writing methods</li>
           <li>Paramter Passing</li>
           <li>Return Values</li>
+          <li>Recursion</li>
         </ul>
       </section>
 
@@ -71,8 +71,8 @@
           <pre class="static-code">public static int abs(int n)</pre>
           <ul>
             <li><code>public static</code> are the modifiers every method in this course starts with.</li>
-            <li><code>int</code> is the return type. The absolute value of an int is an int.</li>
-            <li><code>abs</code> is the name. Any clear name works, such as <code>absoluteValue</code>.</li>
+            <li><code>int</code> is the return type.</li>
+            <li><code>abs</code> is the name. Any name works, such as <code>absoluteValue</code>.</li>
             <li><code>(int n)</code> declares one parameter variable named <code>n</code> of type <code>int</code>.</li>
           </ul>
         </details>
@@ -150,6 +150,84 @@ Not enough money</pre>
             <li><strong>The main work is at the end, unindented.</strong> By the time you reach the last line, you know every check passed.</li>
           </ul>
           <p>This only works in a <code>void</code> method because <code>return;</code> has no value. In a method with a return type, you would write <code>return</code> followed by a value instead, as in <code>abs</code>.</p>
+        </details>
+      </section>
+
+      <section id="recursion" data-nav="Recursion">
+        <h2>Recursion</h2>
+
+        <ul>
+          <li>A recursive method is a method that calls itself.</li>
+          <li>Every recursive method needs a <strong>base case</strong> that stops the recursion.</li>
+          <li>A recursive call should solve a smaller version of the original problem.</li>
+          <li>Each recursive call has its own parameter variables and local variables.</li>
+        </ul>
+        <h3>Example: Counting digits</h3>
+        <p>
+          Consider a method that counts the number of digits in a
+          positive integer. For example, <code>countDigits(583)</code>
+          returns <code>3</code>, and <code>countDigits(7)</code>
+          returns <code>1</code>.
+        </p>
+
+        <p>Here is one way to solve the problem without recursion:</p>
+
+        <div class="ide" data-sample="countDigitsLoop"></div>
+
+        <p>
+          The loop repeatedly divides the number by 10, removing its
+          last digit each time, and counts how many times this happens.
+        </p>
+
+        <div class="question">
+          <strong>Question:</strong> How could you write
+          <code>countDigits</code> as a recursive method instead?
+          Do not use a loop.
+        </div>
+
+        <details>
+          <summary>Answer</summary>
+
+          <p>Think about what happens when we remove the last digit of a number:</p>
+
+          <ul>
+            <li><code>583 / 10</code> is <code>58</code> using integer division.</li>
+            <li><code>58</code> has one fewer digit than <code>583</code>.</li>
+            <li>Every positive one-digit number has exactly one digit.</li>
+          </ul>
+
+          <p>We can use these observations to write a recursive method:</p>
+
+          <div class="ide" data-sample="countDigitsRecursive"></div>
+
+          <p><strong>How it works:</strong></p>
+
+          <ol>
+            <li>
+              <strong>Base case:</strong> If <code>n &lt; 10</code>,
+              the number has one digit, so return <code>1</code>.
+            </li>
+            <li>
+              <strong>Recursive case:</strong> Otherwise, divide
+              <code>n</code> by <code>10</code> to remove its last digit,
+              count the digits in the smaller number, and add <code>1</code>
+              for the digit we removed.
+            </li>
+          </ol>
+
+          <p>For example, <code>countDigits(583)</code> works like this:</p>
+
+          <pre class="static-code">countDigits(583)
+      = 1 + countDigits(58)
+      = 1 + 1 + countDigits(5)
+      = 1 + 1 + 1
+      = 3</pre>
+
+          <p>
+            Notice that each recursive call receives a smaller number.
+            Eventually, the method reaches the base case and the calls
+            return their results.
+          </p>
         </details>
       </section>
 

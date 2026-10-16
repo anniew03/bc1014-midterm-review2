@@ -179,6 +179,50 @@
         "    }",
         "}"
       ].join("\n")
+    },
+    countDigitsLoop: {
+      label: "CountDigitsLoop.java",
+      input: "",
+      output: ["3", "1", "5", ""].join("\n"),
+      code: [
+        "public class CountDigitsLoop {",
+        "    public static int countDigits(int n) {",
+        "        int count = 0;",
+        "        while (n > 0) {",
+        "            count++;",
+        "            n = n / 10;",
+        "        }",
+        "        return count;",
+        "    }",
+        "",
+        "    public static void main(String[] args) {",
+        "        System.out.println(countDigits(583));",
+        "        System.out.println(countDigits(7));",
+        "        System.out.println(countDigits(12345));",
+        "    }",
+        "}"
+      ].join("\n")
+    },
+    countDigitsRecursive: {
+      label: "CountDigitsRecursive.java",
+      input: "",
+      output: ["3", "1", "5", ""].join("\n"),
+      code: [
+        "public class CountDigitsRecursive {",
+        "    public static int countDigits(int n) {",
+        "        if (n < 10) {",
+        "            return 1;",
+        "        }",
+        "        return 1 + countDigits(n / 10);",
+        "    }",
+        "",
+        "    public static void main(String[] args) {",
+        "        System.out.println(countDigits(583));",
+        "        System.out.println(countDigits(7));",
+        "        System.out.println(countDigits(12345));",
+        "    }",
+        "}"
+      ].join("\n")
     }
   };
 
