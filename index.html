@@ -102,7 +102,7 @@ in main, n is -5</pre>
           </ol>
           <p>So <code>main</code>'s <code>n</code> is still −5. The fix is to use the return value by assigning it to a variable:</p>
           <div class="ide" data-sample="fixedAbs"></div>
-          <p>Here <code>x</code> is still −5, because only <code>y</code> received the result. If you want <code>x</code> itself to change, write <code>x = abs(x);</code>.</p>
+          <p>Here <code>x</code> is still −5, because only <code>result</code> received the result. If you want <code>x</code> itself to change, write <code>x = abs(x);</code>.</p>
           <p>Notice the comment in the fixed version. Hopefully putting different variable names here makes it easier to see that these are two different variables</p>
         </details>
       </section>
@@ -142,13 +142,7 @@ Invalid price
 Not enough money</pre>
           <p>Here is the same method with early returns. It prints exactly the same output:</p>
           <div class="ide" data-sample="earlyTicket"></div>
-          <p>Why programmers prefer this:</p>
-          <ul>
-            <li><strong>Stop as soon as you know.</strong> If the age is invalid, nothing else matters. <code>return;</code> leaves immediately, so the method does not keep checking the price and balance for a ticket that can never be sold.</li>
-            <li><strong>Each check sits next to its message.</strong> In the nested version, <code>Invalid age</code> is at the very bottom, far from the <code>age</code> check it belongs to.</li>
-            <li><strong>No staircase of braces.</strong> The nested version gets one level deeper for every check. With ten checks it would be very hard to read. The early-return version stays flat.</li>
-            <li><strong>The main work is at the end, unindented.</strong> By the time you reach the last line, you know every check passed.</li>
-          </ul>
+          <p>If the age is invalid, nothing else matters. <code>return;</code> leaves immediately, so the method does not have to do any other checks or work.</p>
           <p>This only works in a <code>void</code> method because <code>return;</code> has no value. In a method with a return type, you would write <code>return</code> followed by a value instead, as in <code>abs</code>.</p>
         </details>
       </section>
